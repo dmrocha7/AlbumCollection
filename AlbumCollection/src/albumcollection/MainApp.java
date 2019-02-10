@@ -2,8 +2,11 @@ package albumcollection;
                                  
 import java.io.File; 
 import java.io.FileWriter;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.lang.*;
 
 /**
  *
@@ -15,21 +18,11 @@ public class MainApp {
     private static ArrayList<Album> albumCollection = new ArrayList<Album>();
     
     public enum Genre{
-      ROCK(0),
-      RAP(1),
-      COUNTRY(2), 
-      POP(3);    
-     
-      private final int value;
-    private Genre(int value) {
-        this.value = value;
+        ROCK, RAP, COUNTRY,  POP;  
     }
-    public int getValue() {
-        return value;
-    }
-    }
+    
     public static void main(String[] args) {
-
+        
         readCollectionFromDatabase();
         System.out.println("All saved albums read into database.");
         int value = 5;
@@ -87,7 +80,7 @@ public class MainApp {
                 String line = scanner.next();
                 String artist =  scanner.next();
                 int releaseYear =  scanner.nextInt();
-                Genre genre = scanner.next();
+                int genre = scanner.nextInt();
                 Album album = new Album();
                 album.title = line;
                 albumCollection.add(album);

@@ -1,6 +1,6 @@
 package albumcollection;
-
-import java.io.File;
+                                 
+import java.io.File; 
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,14 +10,43 @@ import java.util.Scanner;
  * @author David Rocha dr1340
  */
 public class MainApp {
- private static final String DATABASE_FILE_NAME = "database.txt";
+    private static final String DATABASE_FILE_NAME = "database.txt";
 
     private static ArrayList<Album> albumCollection = new ArrayList<Album>();
-
+    
+    public enum Genre{
+      ROCK(0),
+      RAP(1),
+      COUNTRY(2), 
+      POP(3);    
+     
+      private final int value;
+    private Genre(int value) {
+        this.value = value;
+    }
+    public int getValue() {
+        return value;
+    }
+    }
     public static void main(String[] args) {
 
         readCollectionFromDatabase();
-
+        System.out.println("All saved albums read into database.");
+        int value = 5;
+        while(value != 5){
+            System.out.println("1. Display list	of all	albums in the collection.\n" +
+                "2. Add	a new album to the collection.\n" +
+                "3. Search for an album	given the name of the artist or title of the \n" +
+                "album or part of the name of the artist or title of the album.\n" +
+                "4. Delete an album from the collection.\n" +
+                "5. Exit program.");
+            switch(value){
+                case 1:
+                    break;
+            }
+            
+        }
+           
         Album newAlbum = new Album();
         newAlbum.title = "Blah";
 
@@ -52,9 +81,13 @@ public class MainApp {
         try {
 
             Scanner scanner = new Scanner(file);
+            scanner.useDelimiter("~");
 
             while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
+                String line = scanner.next();
+                String artist =  scanner.next();
+                int releaseYear =  scanner.nextInt();
+                Genre genre = scanner.next();
                 Album album = new Album();
                 album.title = line;
                 albumCollection.add(album);

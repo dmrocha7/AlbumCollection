@@ -29,16 +29,18 @@ public class MainApp {
         int genre = -1;
         Album album = new Album(title, artist);
         Scanner in = new Scanner(System.in);
-        int value = 5;
-        while(value != 5){
+        int value = in.nextInt();
+        do {
             System.out.println("1. Display list	of all	albums in the collection.\n" +
                 "2. Add	a new album to the collection.\n" +
                 "3. Search for an album	given the name of the artist or title of the \n" +
                 "album or part of the name of the artist or title of the album.\n" +
                 "4. Delete an album from the collection.\n" +
-                "5. Exit program.");
+                "5. Exit program.");            
+        
             switch(value){
                 case 1:
+                    
                     break;
                 case 2:
                     System.out.println("Please enter the Album Title.");
@@ -72,11 +74,17 @@ public class MainApp {
                             break;
                     }       
                 }
+                    break;
+                    
+                case 3:
+                    System.out.println("");
+                    break;
+                default:                
             }
-
-        System.out.println(album.toString());
-             
         }
+        while(value != 5);
+        
+        System.out.println(album.toString()); 
         
         writeCollectionToDatabase();
     }
@@ -134,7 +142,7 @@ public class MainApp {
                 albumCollection.add(album);
             }
 
-        } catch (Exception ex) {
+        } catch (Exception ex) { //make filenotfound
 
             System.out.println("Exception: " + ex);
         }

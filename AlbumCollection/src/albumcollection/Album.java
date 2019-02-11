@@ -52,4 +52,19 @@ public class Album {
     public MusicGenre getMusicGenre() {
         return musicGenre;
     }
+    @Override
+    public String toString() {
+        Integer genre = -1;
+        if(this.musicGenre.equals(musicGenre.ROCK)){
+            genre.equals(0);
+        }else if(this.musicGenre.equals(musicGenre.RAP)){
+            genre.equals(1);
+        }else if(this.musicGenre.equals(musicGenre.COUNTRY)){
+            genre.equals(2);
+        }else if(this.musicGenre.equals(musicGenre.POP)){
+            genre.equals(3);
+        }
+        return "Title: " + this.title + ", Artist" + this.artist + ", Year: " +
+        this.releaseYear + ", Genre: " + genre + "\n\n";
+    }
 }

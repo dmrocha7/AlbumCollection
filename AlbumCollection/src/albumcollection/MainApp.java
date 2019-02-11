@@ -17,9 +17,7 @@ public class MainApp {
 
     private static ArrayList<Album> albumCollection = new ArrayList<Album>();
     
-    public enum Genre{
-        ROCK, RAP, COUNTRY,  POP;  
-    }
+
     
     public static void main(String[] args) {
         

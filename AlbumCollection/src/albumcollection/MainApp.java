@@ -26,7 +26,7 @@ public class MainApp {
         String title = "";
         String artist = "";
         int releaseYear;
-        int genre = 0;
+        int genre = -1;
         Album album = new Album(title, artist);
         Scanner in = new Scanner(System.in);
         int value = 5;
@@ -47,33 +47,32 @@ public class MainApp {
                     artist = in.nextLine();
                     System.out.println("Please enter the Release Year.");
                     releaseYear = in.nextInt();
-                    System.out.println("Please enter the Genre.");
-                    artist = in.nextLine();
-                    System.out.println("Select the phone type:");
-                    System.out.println("0. Rock");
-                    System.out.println("1. Rap");
-                    System.out.println("2. Country");
-                    System.out.println("3. Pop\n");
+                    while(genre >= 0 && genre <= 3){
+                        System.out.println("Select the phone type:");
+                        System.out.println("0. Rock");
+                        System.out.println("1. Rap");
+                        System.out.println("2. Country");
+                        System.out.println("3. Pop\n");
+                        genre = in.nextInt();
+                        System.out.println("");
 
-                    int phoneTypeInt = in.nextInt();
-        System.out.println("");
-
-            switch (genre){
-                    case 1:
-                        album.setMusicGenre(MusicGenre.ROCK);
-                        break;
-                    case 2:
-                        album.setMusicGenre(MusicGenre.RAP);
-                        break;
-                    case 3:
-                        album.setMusicGenre(MusicGenre.COUNTRY);
-                        break;
-                    case 4:
-                        album.setMusicGenre(MusicGenre.POP);
-                    default:
-                        break;
+                    switch (genre){
+                        case 1:
+                            album.setMusicGenre(MusicGenre.ROCK);
+                            break;
+                        case 2:
+                            album.setMusicGenre(MusicGenre.RAP);
+                            break;
+                        case 3:
+                            album.setMusicGenre(MusicGenre.COUNTRY);
+                            break;
+                        case 4:
+                            album.setMusicGenre(MusicGenre.POP);
+                        default:
+                            break;
+                    }       
+                }
             }
-        }
 
         System.out.println(album.toString());
              
@@ -88,8 +87,8 @@ public class MainApp {
             FileWriter fileWriter = new FileWriter(DATABASE_FILE_NAME, false);
 
             for (Album album : albumCollection) {
-                String title = album.title;
-                fileWriter.write(title + "\n");
+                //String title = album.title;
+                //fileWriter.write(title + "\n");
             }
 
             fileWriter.close();

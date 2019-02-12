@@ -23,9 +23,7 @@ public class MainApp {
     public static void main(String[] args) {
         
         readCollectionFromDatabase();
-        for (Album album : albumCollection) {
-            System.out.println(album.toString());
-        }
+        
         System.out.println("\nAll saved albums read into database.");
         String title = "";
         String artist = "";
@@ -43,7 +41,9 @@ public class MainApp {
             value = inC.nextInt();
             switch(value){
                 case 1:
-                    
+                    for (Album album : albumCollection) {
+                        System.out.println(album.toString());
+                    }
                     break;
                 case 2:
                     Scanner in = new Scanner(System.in);
@@ -87,15 +87,22 @@ public class MainApp {
                     System.out.println("Album has been added to ArrayList.");
                     break;
                     
-                case 3:
-                    System.out.println("");
+                case 3:   
+                    Scanner input = new Scanner(System.in);
+                    System.out.println("Enter name of artist or title of album," +
+                            " or part of the name of the artist or title of the album.");
+                    String temp = "";
+                    input.nextLine();
+                    for (Album a : albumCollection) {
+                        System.out.println(a.toString());
+                    }
                     break;
                 default:                
             }
         }
         while(value != 5);
         
-        //writeCollectionToDatabase();
+        writeCollectionToDatabase();
     }
     private static void writeCollectionToDatabase() {
 
@@ -121,7 +128,7 @@ public class MainApp {
                 } else if(musicGenre.equals(musicGenre.POP)) {
                     genre = 3;
                 } 
-                fileWriter.write(genre + "~");
+                fileWriter.write(genre + "\n");
             }
 
             fileWriter.close();

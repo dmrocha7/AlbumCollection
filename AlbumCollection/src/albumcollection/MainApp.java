@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException; 
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.lang.*;
 
@@ -36,6 +37,8 @@ public class MainApp {
             value = inC.nextInt();
             switch(value){
                 case 1:
+                    Collections.sort(albumCollection);
+                    
                     for (Album album : albumCollection) {
                         System.out.println(album.toString());
                     }
@@ -157,8 +160,8 @@ public class MainApp {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] details = line.split("~");
-                String title = details[0];                
-                String artist =  details[1]; 
+                String title = details[1];                
+                String artist =  details[0]; 
                 int releaseYear =  Integer.parseInt(details[2]);
                 Album album = new Album(title, artist, releaseYear);
                 int genre = Integer.parseInt(details[3]);

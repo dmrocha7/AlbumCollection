@@ -160,8 +160,8 @@ public class MainApp {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] details = line.split("~");
-                String title = details[1];                
-                String artist =  details[0]; 
+                String title = details[0];                
+                String artist =  details[1]; 
                 int releaseYear =  Integer.parseInt(details[2]);
                 Album album = new Album(title, artist, releaseYear);
                 int genre = Integer.parseInt(details[3]);

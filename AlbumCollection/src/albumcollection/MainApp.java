@@ -3,8 +3,6 @@ package albumcollection;
 import java.io.File; 
 import java.io.FileNotFoundException; 
 import java.io.FileWriter;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.*;
@@ -18,12 +16,9 @@ public class MainApp {
 
     private static ArrayList<Album> albumCollection = new ArrayList<Album>();
     
-
-    
     public static void main(String[] args) {
         
-        readCollectionFromDatabase();
-        
+        readCollectionFromDatabase();        
         System.out.println("\nAll saved albums read into database.");
         String title = "";
         String artist = "";
@@ -83,18 +78,32 @@ public class MainApp {
                                 break;
                         }       
                     }
-                    //add to arraylist
-                    System.out.println("Album has been added to ArrayList.");
+                    albumCollection.add(album);
+                    System.out.println("Album has been added to ArrayList.\n");
                     break;
                     
                 case 3:   
                     Scanner input = new Scanner(System.in);
                     System.out.println("Enter name of artist or title of album," +
-                            " or part of the name of the artist or title of the album.");
+                     " or part of the name of the artist or title of the album.");
                     String temp = "";
-                    input.nextLine();
+                    temp = input.nextLine();
                     for (Album a : albumCollection) {
-                        System.out.println(a.toString());
+                        if(a.getArtist().contains(temp)|| a.getArtist().contains(temp))
+                            System.out.println("Album exists.");
+                        else
+                            System.out.println("Album does not exist.");                                             
+                    }
+                    break;
+                case 4:
+                    Scanner i = new Scanner(System.in);
+                    System.out.println("Enter the title of the album " +
+                            "you would like to delete.");
+                    String t = i.nextLine();
+                    for (Album a : albumCollection) {
+                        if(a.getTitle().equals(i)) {
+                            albumCollection.remove(a);
+                        }
                     }
                     break;
                 default:                
@@ -110,7 +119,6 @@ public class MainApp {
             FileWriter fileWriter = new FileWriter(DATABASE_FILE_NAME, false);
 
             for (Album album : albumCollection) {
-                
                 String title = album.getTitle();
                 fileWriter.write(title + "~");
                 String artist = album.getArtist();
@@ -119,6 +127,7 @@ public class MainApp {
                 fileWriter.write(releaseYear + "~");
                 MusicGenre musicGenre = album.getMusicGenre();
                 int genre = -1;
+                
                 if(musicGenre.equals(musicGenre.RAP)) {
                     genre = 0;
                 } else if(musicGenre.equals(musicGenre.ROCK)) {
@@ -130,7 +139,6 @@ public class MainApp {
                 } 
                 fileWriter.write(genre + "\n");
             }
-
             fileWriter.close();
 
         } catch (Exception ex) {

@@ -14,7 +14,7 @@ public class Album {
     private int releaseYear;
     private MusicGenre musicGenre;
 
-    public Album(String title, String artist){
+    public Album(String title, String artist, int releaseYear){
         this.title = title;
         this.artist = artist;
         this.releaseYear = releaseYear;
@@ -37,7 +37,7 @@ public class Album {
         this.artist = artist;
     }
     
-    public Integer releaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
     
@@ -54,17 +54,7 @@ public class Album {
     }
     @Override
     public String toString() {
-        Integer genre = -1;
-        if(this.musicGenre.equals(musicGenre.ROCK)){
-            genre.equals(0);
-        }else if(this.musicGenre.equals(musicGenre.RAP)){
-            genre.equals(1);
-        }else if(this.musicGenre.equals(musicGenre.COUNTRY)){
-            genre.equals(2);
-        }else if(this.musicGenre.equals(musicGenre.POP)){
-            genre.equals(3);
-        }
-        return "Title: " + this.title + ", Artist" + this.artist + ", Year: " +
-        this.releaseYear + ", Genre: " + genre + "\n\n";
+        return "Title: " + this.title + ", Artist: " + this.artist + ", Year: " +
+        this.releaseYear + ", Genre: " + musicGenre;
     }
 }

@@ -1,6 +1,7 @@
 package albumcollection;
                                  
 import java.io.File; 
+import java.io.FileNotFoundException; 
 import java.io.FileWriter;
 import java.util.Map;
 import java.util.HashMap;
@@ -22,14 +23,16 @@ public class MainApp {
     public static void main(String[] args) {
         
         readCollectionFromDatabase();
-        System.out.println("All saved albums read into database.");
+        for (Album album : albumCollection) {
+            System.out.println(album.toString());
+        }
+        System.out.println("\nAll saved albums read into database.");
         String title = "";
         String artist = "";
         int releaseYear;
         int genre = -1;
-        Album album = new Album(title, artist);
-        Scanner in = new Scanner(System.in);
-        int value = in.nextInt();
+        Scanner inC = new Scanner(System.in); 
+        int value = -1;
         do {
             System.out.println("1. Display list	of all	albums in the collection.\n" +
                 "2. Add	a new album to the collection.\n" +
@@ -37,18 +40,24 @@ public class MainApp {
                 "album or part of the name of the artist or title of the album.\n" +
                 "4. Delete an album from the collection.\n" +
                 "5. Exit program.");            
-        
+            value = inC.nextInt();
             switch(value){
                 case 1:
                     
                     break;
                 case 2:
+                    Scanner in = new Scanner(System.in);
                     System.out.println("Please enter the Album Title.");
                     title = in.nextLine();
+                    
+                    System.out.println(title);
                     System.out.println("Please enter the Artist.");
                     artist = in.nextLine();
+                    System.out.println(artist);
+                    
                     System.out.println("Please enter the Release Year.");
                     releaseYear = in.nextInt();
+                    Album album = new Album(title, artist, releaseYear);
                     while(genre >= 0 && genre <= 3){
                         System.out.println("Select the phone type:");
                         System.out.println("0. Rock");
@@ -58,22 +67,24 @@ public class MainApp {
                         genre = in.nextInt();
                         System.out.println("");
 
-                    switch (genre){
-                        case 1:
-                            album.setMusicGenre(MusicGenre.ROCK);
-                            break;
-                        case 2:
-                            album.setMusicGenre(MusicGenre.RAP);
-                            break;
-                        case 3:
-                            album.setMusicGenre(MusicGenre.COUNTRY);
-                            break;
-                        case 4:
-                            album.setMusicGenre(MusicGenre.POP);
-                        default:
-                            break;
-                    }       
-                }
+                        switch (genre){
+                            case 1:
+                                album.setMusicGenre(MusicGenre.ROCK);
+                                break;
+                            case 2:
+                                album.setMusicGenre(MusicGenre.RAP);
+                                break;
+                            case 3:
+                                album.setMusicGenre(MusicGenre.COUNTRY);
+                                break;
+                            case 4:
+                                album.setMusicGenre(MusicGenre.POP);
+                            default:
+                                break;
+                        }       
+                    }
+                    //add to arraylist
+                    System.out.println("Album has been added to ArrayList.");
                     break;
                     
                 case 3:
@@ -84,19 +95,33 @@ public class MainApp {
         }
         while(value != 5);
         
-        System.out.println(album.toString()); 
-        
-        writeCollectionToDatabase();
+        //writeCollectionToDatabase();
     }
     private static void writeCollectionToDatabase() {
 
         try {
-
             FileWriter fileWriter = new FileWriter(DATABASE_FILE_NAME, false);
 
             for (Album album : albumCollection) {
-                //String title = album.title;
-                //fileWriter.write(title + "\n");
+                
+                String title = album.getTitle();
+                fileWriter.write(title + "~");
+                String artist = album.getArtist();
+                fileWriter.write(artist + "~");
+                int releaseYear = album.getReleaseYear();
+                fileWriter.write(releaseYear + "~");
+                MusicGenre musicGenre = album.getMusicGenre();
+                int genre = -1;
+                if(musicGenre.equals(musicGenre.RAP)) {
+                    genre = 0;
+                } else if(musicGenre.equals(musicGenre.ROCK)) {
+                    genre = 1;
+                } else if(musicGenre.equals(musicGenre.COUNTRY)) {
+                    genre = 2;
+                } else if(musicGenre.equals(musicGenre.POP)) {
+                    genre = 3;
+                } 
+                fileWriter.write(genre + "~");
             }
 
             fileWriter.close();
@@ -112,38 +137,38 @@ public class MainApp {
         File file = new File(DATABASE_FILE_NAME);
 
         try {
-
             Scanner scanner = new Scanner(file);
-            scanner.useDelimiter("~");
 
             while (scanner.hasNextLine()) {
-                String title = scanner.next();
-                String artist =  scanner.next();
-                Album album = new Album(title, artist);
-                int releaseYear =  scanner.nextInt();
-                int genre = scanner.nextInt();
+                String line = scanner.nextLine();
+                String[] details = line.split("~");
+                String title = details[0];                
+                String artist =  details[1]; 
+                int releaseYear =  Integer.parseInt(details[2]);
+                Album album = new Album(title, artist, releaseYear);
+                int genre = Integer.parseInt(details[3]);
                 
                 switch (genre) {
-                    case 1:
+                    case 0:
                         album.setMusicGenre(MusicGenre.ROCK);
                         break;
-                    case 2:
+                    case 1:
                         album.setMusicGenre(MusicGenre.RAP);
                         break;
-                    case 3:
+                    case 2:
                         album.setMusicGenre(MusicGenre.COUNTRY);
                         break;
-                    case 4:
+                    case 3:
                         album.setMusicGenre(MusicGenre.POP);
                     default:
                         break;
             }
-                
+                //Album album = new Album(title, artist, releaseYear);
                 albumCollection.add(album);
+
             }
-
         } catch (Exception ex) { //make filenotfound
-
+            
             System.out.println("Exception: " + ex);
         }
 

@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
- * @author David Rocha dr1340
+ * This program implements an Album Catalog. It allows the user to add new albums,
+ display a list of all albums in the collection, search for a specific album,
+ delete a specific album.
+ * @author David Rocha
  */
 public class MainApp {
     private static final String DATABASE_FILE_NAME = "database.txt";
@@ -46,6 +48,10 @@ public class MainApp {
                     artist = in.nextLine();
                     System.out.println("Please enter the Release Year.");
                     releaseYear = in.nextInt();
+                    while(!in.hasNextInt()) {
+                        System.out.println("Enter a number please.");
+                        releaseYear = in.nextInt();
+                    }
                     
                     Album album = new Album(title, artist, releaseYear);
                         System.out.println("Select the phone type:");
@@ -82,13 +88,13 @@ public class MainApp {
                     String temp = "";
                     temp = input.nextLine();
                     for (Album a : albumCollection) {
-                        if(a.getArtist().contains(temp)|| a.getArtist().contains(temp)) {
+                        if(a.getArtist().contains(temp)|| a.getTitle().contains(temp)) {
                             System.out.println("Album exists."); 
                             b++;
-                        }
-                        if(b == 0)
-                            System.out.println("Album does not exist.");                        
+                        }                       
                     }
+                    if(b == 0)
+                            System.out.println("Album does not exist."); 
                     break;
                 case 4:
                     Scanner i = new Scanner(System.in);
@@ -96,19 +102,20 @@ public class MainApp {
                             "you would like to delete.");
                     String t = i.nextLine();
                     for (Album a : albumCollection) {
-                        if(a.getTitle().equals(t)) {
+                        if(a.getTitle().equals(t)) 
                             albumCollection.remove(a);
-                        }
                     }
                     break;
-                default: 
-                    System.out.println("Please enter a  number 1-5.");
             }
         }
         while(value != 5);
         
         writeCollectionToDatabase();
     }
+
+/**
+ * This method writes all the albums in the database to the txt file.
+ */
     private static void writeCollectionToDatabase() {
 
         try {
@@ -143,6 +150,10 @@ public class MainApp {
         }
     }
 
+/**
+ * /**
+ * This method reads all the albums from the database to the txt file.
+ */
     private static void readCollectionFromDatabase() {
         
         File file = new File(DATABASE_FILE_NAME);

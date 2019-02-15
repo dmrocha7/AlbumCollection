@@ -1,12 +1,9 @@
 package albumcollection;
                                  
 import java.io.File; 
-import java.io.FileNotFoundException; 
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
-import java.lang.*;
 
 /**
  *
@@ -36,9 +33,7 @@ public class MainApp {
                 "5. Exit program.");            
             value = inC.nextInt();
             switch(value){
-                case 1:
-                    Collections.sort(albumCollection);
-                    
+                case 1: 
                     for (Album album : albumCollection) {
                         System.out.println(album.toString());
                     }
@@ -47,24 +42,18 @@ public class MainApp {
                     Scanner in = new Scanner(System.in);
                     System.out.println("Please enter the Album Title.");
                     title = in.nextLine();
-                    
-                    System.out.println(title);
                     System.out.println("Please enter the Artist.");
                     artist = in.nextLine();
-                    System.out.println(artist);
-                    
                     System.out.println("Please enter the Release Year.");
                     releaseYear = in.nextInt();
+                    
                     Album album = new Album(title, artist, releaseYear);
-                    while(genre >= 0 && genre <= 3){
                         System.out.println("Select the phone type:");
                         System.out.println("0. Rock");
                         System.out.println("1. Rap");
                         System.out.println("2. Country");
-                        System.out.println("3. Pop\n");
+                        System.out.println("3. Pop\n"); 
                         genre = in.nextInt();
-                        System.out.println("");
-
                         switch (genre){
                             case 1:
                                 album.setMusicGenre(MusicGenre.ROCK);
@@ -80,22 +69,25 @@ public class MainApp {
                             default:
                                 break;
                         }       
-                    }
+                    
                     albumCollection.add(album);
-                    System.out.println("Album has been added to ArrayList.\n");
+                    System.out.println("Album has been added to Collection2.\n");
                     break;
                     
                 case 3:   
                     Scanner input = new Scanner(System.in);
                     System.out.println("Enter name of artist or title of album," +
                      " or part of the name of the artist or title of the album.");
+                    int b = 0;
                     String temp = "";
                     temp = input.nextLine();
                     for (Album a : albumCollection) {
-                        if(a.getArtist().contains(temp)|| a.getArtist().contains(temp))
-                            System.out.println("Album exists.");
-                        else
-                            System.out.println("Album does not exist.");                                             
+                        if(a.getArtist().contains(temp)|| a.getArtist().contains(temp)) {
+                            System.out.println("Album exists."); 
+                            b++;
+                        }
+                        if(b == 0)
+                            System.out.println("Album does not exist.");                        
                     }
                     break;
                 case 4:
@@ -104,12 +96,13 @@ public class MainApp {
                             "you would like to delete.");
                     String t = i.nextLine();
                     for (Album a : albumCollection) {
-                        if(a.getTitle().equals(i)) {
+                        if(a.getTitle().equals(t)) {
                             albumCollection.remove(a);
                         }
                     }
                     break;
-                default:                
+                default: 
+                    System.out.println("Please enter a  number 1-5.");
             }
         }
         while(value != 5);

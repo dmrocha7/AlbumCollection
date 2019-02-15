@@ -12,7 +12,7 @@ enum MusicGenre{
  *
  * 
  */
-public class Album implements Comparable<Album> {
+public class Album {
     private String title;
     private String artist;
     private int releaseYear;
@@ -88,7 +88,7 @@ public class Album implements Comparable<Album> {
     }
     
     /**
-     *
+     * Setter for Genre
      * @return
      */
     public MusicGenre getMusicGenre() {
@@ -99,13 +99,5 @@ public class Album implements Comparable<Album> {
     public String toString() {
         return "Title: " + this.title + ", Artist: " + this.artist + ", Year: " +
         this.releaseYear + ", Genre: " + musicGenre;
-    }
-    
-    @Override
-    public int compareTo(Album a) {
-        if(getTitle() == null || a.getTitle() == null) {
-            return 0;       
-        }
-        return getTitle().compareTo(a.getTitle());
     }
 }

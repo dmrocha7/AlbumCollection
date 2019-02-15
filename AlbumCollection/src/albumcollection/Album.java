@@ -1,39 +1,47 @@
 package albumcollection;
 
 /**
- *
- * @author David Rocha
+ * This enum represents the music genre of the album.
  */
 enum MusicGenre{
     ROCK, RAP, COUNTRY, POP;  
 }
 
 /**
- *
+ * This class is a representation of an Album. 
  * 
  */
 public class Album {
-    private String title;
     private String artist;
+    private String title;
     private int releaseYear;
     private MusicGenre musicGenre;
 
-    /**
-     *
-     * @param title
-     * @param artist
-     * @param releaseYear
-     */
-    public Album(String title, String artist, int releaseYear){
-        this.title = title;
+/**
+* This constructor initializes the item object. The constructor provides no
+* user input validation. That should be handled by the class that creates a
+* item object.
+*
+* @param title a <b><CODE>String</CODE></b> that represents the title of the album
+*
+* @param artist a <b><CODE>String</CODE></b> that represents the artist name.
+*
+* @param releaseYear a <b><CODE>int</CODE></b> that represents the category.
+*                 Door&Window, Cabinet&Furniture, Fasteners, Structural, Other.
+*
+* @param musicGenre a <b><CODE>MusicGenre</CODE></b> that represents the quantity
+*
+*/
+    public Album(String artist, String title, int releaseYear){
         this.artist = artist;
+        this.title = title;
         this.releaseYear = releaseYear;
         this.musicGenre = musicGenre;
     }
     
     /**
      *
-     * @return
+     * @return title a <b><CODE>String</CODE></b> represents Title of album.
      */
     public String getTitle() {
         return title;
@@ -41,7 +49,7 @@ public class Album {
     
     /**
      *
-     * @param title
+     * @param title a <b><CODE>int</CODE></b> that represents the title of the album.
      */
     public void setTitle(String title) {
         this.title = title;
@@ -49,7 +57,7 @@ public class Album {
     
     /**
      *
-     * @return
+     * @return a <b><CODE>String</CODE></b> represents Title of album.
      */
     public String getArtist() {
         return artist;
@@ -57,7 +65,7 @@ public class Album {
     
     /**
      *
-     * @param artist
+     * @param artist a <b><CODE>String</CODE></b> that represents the artist
      */
     public void setArtist(String artist) {
         this.artist = artist;
@@ -65,15 +73,15 @@ public class Album {
     
     /**
      *
-     * @return
+     * @return a <b><CODE>int</CODE></b> represents release date of album.
      */
-    public Integer getReleaseYear() {
+    public int getReleaseYear() {
         return releaseYear;
     }
     
     /**
      *
-     * @param releaseYear
+     * @param releaseYear a <b><CODE>int</CODE></b> that represents the quantity
      */
     public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
@@ -89,12 +97,16 @@ public class Album {
     
     /**
      * Setter for Genre
-     * @return
+     * @return musicGenre a <b><CODE>MusicGenre</CODE></b> 
      */
     public MusicGenre getMusicGenre() {
         return musicGenre;
     }
     
+    /**
+     * 
+     * @return a <b><CODE>String</CODE></b> that prints a formatted album.
+     */
     @Override
     public String toString() {
         return "Title: " + this.title + ", Artist: " + this.artist + ", Year: " +

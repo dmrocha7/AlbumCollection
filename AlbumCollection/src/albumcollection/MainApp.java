@@ -13,12 +13,17 @@ import java.io.*;
  * @author David Rocha
  */
 public class MainApp {
-    private static final String DATABASE_FILE_NAME = "database.txt";
+    private static final String DATABASE_FILE_NAME = "database.ser";
 
     private static ArrayList<Album> albumCollection = new ArrayList<Album>();
     
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws FileNotFoundException {
+      /*  FileOutputStream fileStream = new FileOutputStream(DATABASE_FILE_NAME);
+        try {
+            ObjectOutputStream os  = new ObjectOutputStream(fileStream);
+        } catch (IOException ex) {
+            System.out.println("Not Found");
+        }*/
         readCollectionFromDatabase();        
         System.out.println("\nAll saved albums read into database.");
         String title = "";
@@ -29,14 +34,14 @@ public class MainApp {
         int value = -1;
         do {
             System.out.println("1. Display list	of all	albums in the collection.\n"
-                + "2. Add a new album to the collection.\n" + "\t3. Search for "
-                + "an album given the name of the artist or title of the\n" 
-                +"album or part of the name of the artist or title of the album.\n"
+                + "2. Add a new album to the collection.\n" + "3. Search for "
+                + "an album given the name of the artist or title of the\n   " 
+                +" album or part of the name of the artist or title of the album.\n"
                 + "4. Delete an album from the collection.\n" +
-                "5. . Play an album.\n" + "1.\tPlay.\n" + "\t2. Fast Forward.\n" +
+                "5. Play an album.\n" + "\t1.Play.\n" + "\t2.s Fast Forward.\n" +
                 "\t3. Rewind.\n" + "\t4. Skip To Next Track (if album is a CD)."
                 + "\n" + "\t5. Skip To Previous Track (if album is a CD).\n" +
-                "6. Exit Player.Exit program.");            
+                "\t6. Exit Player.\n6. Exit program.");            
             value = inC.nextInt();
             switch(value){
                 case 1: 
@@ -127,9 +132,12 @@ public class MainApp {
                             albumCollection.remove(a);
                     }
                     break;
+                case 5:
+                    
+                    break;
             }
         }
-        while(value != 5);
+        while(value != 6);
         
         writeCollectionToDatabase();
     }
@@ -205,10 +213,8 @@ public class MainApp {
                         album.setMusicGenre(MusicGenre.POP);
                     default:
                         break;
-            }
-                //Album album = new Album(title, artist, releaseYear);
+                }
                 albumCollection.add(album);
-
             }
         } catch (Exception ex) { //make filenotfound
             

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 /**
  * This program implements an Album Catalog. It allows the user to add new albums,
@@ -22,17 +23,20 @@ public class MainApp {
         System.out.println("\nAll saved albums read into database.");
         String title = "";
         String artist = "";
-        int releaseYear;
+        int releaseYear = 0;
         int genre = -1;
         Scanner inC = new Scanner(System.in); 
         int value = -1;
         do {
-            System.out.println("1. Display list	of all	albums in the collection.\n" +
-                "2. Add	a new album to the collection.\n" +
-                "3. Search for an album	given the name of the artist or title of the \n" +
-                "album or part of the name of the artist or title of the album.\n" +
-                "4. Delete an album from the collection.\n" +
-                "5. Exit program.");            
+            System.out.println("1. Display list	of all	albums in the collection.\n"
+                + "2. Add a new album to the collection.\n" + "\t3. Search for "
+                + "an album given the name of the artist or title of the\n" 
+                +"album or part of the name of the artist or title of the album.\n"
+                + "4. Delete an album from the collection.\n" +
+                "5. . Play an album.\n" + "1.\tPlay.\n" + "\t2. Fast Forward.\n" +
+                "\t3. Rewind.\n" + "\t4. Skip To Next Track (if album is a CD)."
+                + "\n" + "\t5. Skip To Previous Track (if album is a CD).\n" +
+                "6. Exit Player.Exit program.");            
             value = inC.nextInt();
             switch(value){
                 case 1: 
@@ -47,19 +51,36 @@ public class MainApp {
                     System.out.println("Please enter the Artist.");
                     artist = in.nextLine();
                     System.out.println("Please enter the Release Year.");
-                    releaseYear = in.nextInt();
-                    while(!in.hasNextInt()) {
-                        System.out.println("Enter a number please.");
-                        releaseYear = in.nextInt();
+                    boolean test = false;  
+                    while(test == false) {
+                        if(in.hasNextInt()) {
+                            releaseYear = in.nextInt();
+                            test = true;
+                        }
+                        else if(!in.hasNextInt()) {
+                            System.out.println("Enter a number please.");
+                            in.next();
+                        }
                     }
                     
-                    Album album = new Album(title, artist, releaseYear);
+                    Album album = new Album(artist, title, releaseYear);
                         System.out.println("Select the phone type:");
                         System.out.println("0. Rock");
                         System.out.println("1. Rap");
                         System.out.println("2. Country");
                         System.out.println("3. Pop\n"); 
-                        genre = in.nextInt();
+                        test = false;
+                    
+                        while(test == false) {
+                         if(in.hasNextInt()) {
+                                genre = in.nextInt();
+                                test = true;
+                            }
+                            else if(!in.hasNextInt() ) {
+                                System.out.println("Enter a number 0-3.");
+                                in.next();
+                            }
+                        }
                         switch (genre){
                             case 1:
                                 album.setMusicGenre(MusicGenre.ROCK);
@@ -164,10 +185,10 @@ public class MainApp {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] details = line.split("~");
-                String title = details[0];                
-                String artist =  details[1]; 
+                String title = details[1];                
+                String artist =  details[0]; 
                 int releaseYear =  Integer.parseInt(details[2]);
-                Album album = new Album(title, artist, releaseYear);
+                Album album = new Album(artist, title, releaseYear);
                 int genre = Integer.parseInt(details[3]);
                 
                 switch (genre) {

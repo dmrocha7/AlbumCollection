@@ -11,7 +11,7 @@ enum MusicGenre{
  * This class is a representation of an Album. 
  * 
  */
-public class Album {
+public class Album implements java.io.Serializable{
     private String artist;
     private String title;
     private int releaseYear;

@@ -9,8 +9,9 @@ package albumcollection;
  *
  * @author bb&cc
  */
-public class CassetteTape extends Album{
+public class CassetteTape extends Album implements Album.playable {
 
+    
     public CassetteTape(String artist, String title, int releaseYear) {
         super(artist, title, releaseYear);
     }

@@ -16,7 +16,7 @@ public class MainApp {
     private static final String DATABASE_FILE_NAME = "database.ser";
 
     private static ArrayList<Album> albumCollection = new ArrayList<Album>();
-    
+
     public static void main(String[] args) throws FileNotFoundException {
       /*  FileOutputStream fileStream = new FileOutputStream(DATABASE_FILE_NAME);
         try {

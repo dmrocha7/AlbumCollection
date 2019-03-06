@@ -112,4 +112,8 @@ public class Album implements java.io.Serializable{
         return "Title: " + this.title + ", Artist: " + this.artist + ", Year: " +
         this.releaseYear + ", Genre: " + musicGenre;
     }
+
+    static interface playable {
+        
+    }
 }
